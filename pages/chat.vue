@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from 'vue'
+import {ref, onMounted} from 'vue'
 import { createClient } from '@supabase/supabase-js'
 
 const config = useRuntimeConfig()
@@ -12,10 +12,10 @@ let input = ref('')
 const channel = supabase.channel('Chats')
 
 async function getMessage(){
-const {data,error} = await supabase.from('Chats').select("message, time")
-console.log(data)
-messages.value = data
-console.log(input)
+    const {data,error} = await supabase.from('Chats').select("message, time")
+    console.log(data)
+    messages.value = data
+    console.log(input)
 }
 
 
@@ -31,8 +31,6 @@ channel.on('postgres_changes', {
 
 
 
-
-
 async function sendMessage(){
     if(input.value){
         const {data,error} = await supabase.from('Chats').insert([{
@@ -43,6 +41,7 @@ async function sendMessage(){
 }
 
 
+onMounted(() => getMessage())
 </script>
 
 
@@ -61,7 +60,7 @@ async function sendMessage(){
         <div class="flex justify-center items-center w-[100%] h-[20vh] p-4 border-t-2 border-t-stone-900 sticky bottom-0 bg-black">
             <div class="flex justify-evenly w-[75%]">
                 <UInput class="w-[75%]" size="xl" v-model="input" />
-                <UButton class="button" label="Send" trailing-icon="ic:round-send" size="xl" @click="sendMessage"/>
+                <UButton class="text-slate-200 cursor-pointer" label="Send" trailing-icon="ic:round-send" size="xl" @click="sendMessage"/>
             </div>
         </div>
     </div>
@@ -70,17 +69,8 @@ async function sendMessage(){
 
 <style scoped>
 
-    span{
+    :root{
         font-family: "Cal Sans", sans-serif;
-    }
-
-    p{
-        font-family: "Cal Sans", sans-serif;
-    }
-
-    .button{
-        font-family: "Cal Sans", sans-serif;
-        cursor: pointer;
     }
 
 </style>
