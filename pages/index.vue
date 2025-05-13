@@ -4,8 +4,8 @@
 
 
 <template>
-    <div class="flex flex-col items-center justify-center h-screen bg-black text-slate-200 border-2 border-slate-300 gap-6">
-        <div class="flex flex-col items-center justify-center border-2 border-slate-300">
+    <div class="flex flex-col items-center justify-center h-screen bg-black text-slate-200 gap-6">
+        <div class="flex flex-col items-center justify-center ">
             <span class="text-8xl">Nexus Chat</span>
             <span>A simple anonymous chat platform</span>
         </div>
